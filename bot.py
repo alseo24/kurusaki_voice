@@ -4,9 +4,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-
-
-
+TOKEN = os.environ['DISCORD_TOKEN']
 
 def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
@@ -40,5 +38,5 @@ for i in exts:
 
 
 #bot.run(os.environ['TOKEN'])
-bot.run('ODkwNTExNDAwMDQ3MzUzODU2.YUw3Xg.AfW58hQ-5DKNVmyVMaBAgQv0IRc')
+bot.run(TOKEN)
 
