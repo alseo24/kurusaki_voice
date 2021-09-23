@@ -291,8 +291,10 @@ class MusicPlayer(commands.Cog, name='Music'):
         emb = discord.Embed(colour=self.random_color, title='Now Playing',
                             description=download.title, url=download.url)
         emb.set_thumbnail(url=download.thumbnail)
+#       emb.set_footer(
+#           text=f'Requested by {msg.author.display_name}', icon_url=msg.author.avatar_url)
         emb.set_footer(
-            text=f'Requested by {msg.author.display_name}', icon_url=msg.author.avatar_url)
+            text=f'Requested by {msg.author.display_name}', icon_url='https://cdn.discordapp.com/app-icons/890572393251241994/97b442cc2bcc57d3629b945de1439c64.png')
         loop = asyncio.get_event_loop()
 
         if data['queue']:
