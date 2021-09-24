@@ -103,6 +103,13 @@ class Downloader(discord.PCMVolumeTransformer):
         loop = loop or asyncio.get_event_loop()
         data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
         song_list = {'queue': []}
+        ### 2021/09/23 {
+        if data is None:
+        #   filename = ''
+        #   return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data), song_list
+            return None
+        ### } 2021/09/23
+        
         if 'entries' in data:
             if len(data['entries']) > 1:
                 playlist_titles = [title['title'] for title in data['entries']]
@@ -285,16 +292,23 @@ class MusicPlayer(commands.Cog, name='Music'):
 
         ytdl = youtube_dl.YoutubeDL(new_opts)
         download1 = await Downloader.video_url(song, ytdl=ytdl, loop=self.bot.loop)
+### 2021/09/23 {
+        if download1 is None:
+            return None
+### } 2021/09/23
+
         download = download1[0]
         data = download1[1]
         self.player[msg.guild.id]['name'] = audio_name
         emb = discord.Embed(colour=self.random_color, title='Now Playing',
                             description=download.title, url=download.url)
         emb.set_thumbnail(url=download.thumbnail)
+### 2021/09/23 {
 #       emb.set_footer(
 #           text=f'Requested by {msg.author.display_name}', icon_url=msg.author.avatar_url)
         emb.set_footer(
             text=f'Requested by {msg.author.display_name}', icon_url='https://cdn.discordapp.com/app-icons/890572393251241994/97b442cc2bcc57d3629b945de1439c64.png')
+### } 2021/09/23
         loop = asyncio.get_event_loop()
 
         if data['queue']:
