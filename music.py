@@ -294,6 +294,7 @@ class MusicPlayer(commands.Cog, name='Music'):
         download1 = await Downloader.video_url(song, ytdl=ytdl, loop=self.bot.loop)
 ### 2021/09/23 {
         if download1 is None:
+            printf(f'[-] start_song {song} failed!')
             return None
 ### } 2021/09/23
 
